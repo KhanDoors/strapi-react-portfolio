@@ -21,8 +21,18 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user",
-      "via": "portfolios",
-      "private": true
+      "via": "portfolios"
+    },
+    "bgimage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }

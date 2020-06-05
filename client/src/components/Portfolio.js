@@ -9,7 +9,6 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     height: "100vh",
-    backgroundColor: "lightblue",
   },
 });
 
@@ -30,6 +29,8 @@ const Portfolio = () => {
       });
   };
 
+  console.log(items);
+
   return (
     <div className={classes.root}>
       <Typography variant="h1" gutterBottom>
@@ -48,8 +49,9 @@ const Portfolio = () => {
               <Grid item key={item.id}>
                 <Card
                   style={{
+                    width: "30em",
+                    height: "20em",
                     backgroundColor: item.background,
-                    width: "40em",
                   }}
                 >
                   <Typography variant="h3" gutterBottom>
@@ -58,6 +60,11 @@ const Portfolio = () => {
                   <Typography variant="h5" gutterBottom>
                     {item.description}
                   </Typography>
+                  <img
+                    src={item.bgimage}
+                    alt="bgimage"
+                    style={{ height: "20em", width: "20em" }}
+                  />
                 </Card>
               </Grid>
             ))}
