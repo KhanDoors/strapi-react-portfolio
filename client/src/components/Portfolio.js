@@ -81,6 +81,9 @@ const Portfolio = () => {
         console.log(err.response);
       });
   };
+  console.log(items);
+
+  const imgUrl = "http://localhost:1337";
 
   return (
     <>
@@ -118,8 +121,8 @@ const Portfolio = () => {
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
-                      image="https://res.cloudinary.com/khandoors/image/upload/v1590622014/feedback%20form/nldbqltkxqn3mibus1js.png"
-                      title="project title"
+                      image={imgUrl + `${item.bgimage.url}`}
+                      title={item.title}
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
@@ -137,6 +140,7 @@ const Portfolio = () => {
                   <CardActions className={classes.cardActions}>
                     <Box className={classes.author}>
                       <Avatar src="https://res.cloudinary.com/khandoors/image/upload/v1561893971/feedback%20form/KhandoorMedia.png" />
+
                       <Box ml={2}>
                         <Typography variant="subtitle" component="p">
                           Khandoor
@@ -151,7 +155,13 @@ const Portfolio = () => {
                       </Box>
                     </Box>
                     <Box>
-                      <BookmarksIcon />
+                      <a
+                        href="https://www.khandoors.com"
+                        target="_blank"
+                        rel="noopener noferrer"
+                      >
+                        <BookmarksIcon />
+                      </a>
                     </Box>
                   </CardActions>
                 </Card>
