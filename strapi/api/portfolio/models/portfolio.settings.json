@@ -15,16 +15,13 @@
     "description": {
       "type": "richtext"
     },
-    "background": {
-      "type": "string"
-    },
     "user": {
       "plugin": "users-permissions",
       "model": "user",
       "via": "portfolios"
     },
-    "bgimage": {
-      "model": "file",
+    "image": {
+      "collection": "file",
       "via": "related",
       "allowedTypes": [
         "images",

@@ -4,10 +4,6 @@ import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import theme from "./../theme";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
@@ -17,14 +13,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Avatar } from "@material-ui/core";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
+import Navbar from "./layouts/Navbar";
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
     flexGrow: 1,
-  },
-  appbar: {
-    backgroundColor: "#00796b",
   },
   hero: {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://res.cloudinary.com/khandoors/image/upload/v1590622014/feedback%20form/keee064wcezaqyhmdyb2.jpg')`,
@@ -75,101 +69,91 @@ const Portfolio = () => {
 
   const getItems = async () => {
     await axios
-      .get("http://localhost:1337/portfolios?user=1")
+      .get("http://localhost:1337/portfolios")
       .then((res) => setItems(res.data))
       .catch((err) => {
         console.log(err.response);
       });
   };
-  console.log(items);
-
   const imgUrl = "http://localhost:1337";
 
   return (
     <>
-      <div>
-        <AppBar className={classes.appbar} position="static">
-          <Toolbar variant="dense">
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="primary">
-              Khandoors
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
-      <Box className={classes.hero}>
-        <Box>
-          <h1>The Khandoor</h1>{" "}
+      <Navbar>
+        <Box className={classes.hero}>
+          <Box>
+            <h1>The Khandoor</h1>{" "}
+          </Box>
         </Box>
-      </Box>
-      <div className={classes.root}>
-        <Container maxWidth="lg" className={classes.container}>
-          <Typography variant="h4" className={classes.projectTitle}>
-            Projects
-          </Typography>
-          <Grid container spacing={3}>
-            {items.map((item) => (
-              <Grid item key={item.id}>
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.media}
-                      image={imgUrl + `${item.bgimage.url}`}
-                      title={item.title}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {item.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {item.description}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions className={classes.cardActions}>
-                    <Box className={classes.author}>
-                      <Avatar src="https://res.cloudinary.com/khandoors/image/upload/v1561893971/feedback%20form/KhandoorMedia.png" />
-
-                      <Box ml={2}>
-                        <Typography variant="subtitle" component="p">
-                          Khandoor
-                        </Typography>
-                        <Typography
-                          variant="subtitle2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          {item.created_at}
-                        </Typography>
-                      </Box>
-                    </Box>
-                    <Box>
+        <div className={classes.root}>
+          <Container maxWidth="lg" className={classes.container}>
+            <Typography variant="h4" className={classes.projectTitle}>
+              Projects
+            </Typography>
+            <Grid container spacing={3}>
+              {items.map((item) => (
+                <Grid item key={item.id}>
+                  <Card className={classes.card}>
+                    <CardActionArea>
                       <a
                         href="https://www.khandoors.com"
                         target="_blank"
-                        rel="noopener noferrer"
+                        rel="noopener noreferrer"
                       >
-                        <BookmarksIcon />
+                        <CardMedia
+                          className={classes.media}
+                          image={imgUrl + item.image[0].url}
+                          title={item.title}
+                        />
                       </a>
-                    </Box>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </div>
+
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {item.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          {item.description}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions className={classes.cardActions}>
+                      <Box className={classes.author}>
+                        <Avatar src="https://res.cloudinary.com/khandoors/image/upload/v1561893971/feedback%20form/KhandoorMedia.png" />
+
+                        <Box ml={2}>
+                          <Typography variant="subtitle1" component="p">
+                            {item.user.username}
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            {item.created_at}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      <Box>
+                        <a
+                          href="https://www.khandoors.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <BookmarksIcon />
+                        </a>
+                      </Box>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </div>
+      </Navbar>
     </>
   );
 };
